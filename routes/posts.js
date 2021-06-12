@@ -33,3 +33,5 @@ router.delete('/post_id', async (req, res, next) => {
     await PostModel.findByIdAndDelete(post_id)
     res.json({status: 200})
 })
+
+module.exports = router
