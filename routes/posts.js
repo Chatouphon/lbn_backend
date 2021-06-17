@@ -57,10 +57,16 @@ router.put('/:post_id', async (req, res, next) => {
     res.json({status: 200, post: post})
 })
 
-router.delete('/post_id', async (req, res, next) => {
+router.delete('/:post_id', async (req, res, next) => {
     const post_id = req.params.post_id
     await PostModel.findByIdAndDelete(post_id)
-    res.json({status: 200})
+    // res.json({status: 200})
+    res.status(200).json({
+        notice: {
+            success: true,
+            message: 'ລົບໂພສສຳເລັດ',
+        }
+    })
 })
 
 module.exports = router
