@@ -3,12 +3,11 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const postSchema = new Schema({
-    postId: String,
     title: String,
     content: String,
     image: String,
     datePost: Date,
-    statusPost: String,
+    statusPost: Boolean,
     penName: String,
     created_at: { type: Date, default: null },
     updated_at: { type: Date, default: null },

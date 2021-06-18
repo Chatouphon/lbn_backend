@@ -32,7 +32,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var postsRouter = require('./routes/posts');
-app.use('/new', postsRouter)
+app.use('/post', postsRouter);
+var adminRouter = require('./routes/admin');
+app.use('/admin', adminRouter);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
