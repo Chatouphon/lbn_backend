@@ -49,7 +49,7 @@ router.post('/add', async (req, res, next) => {
     // res.json({status: 200})
 })
 
-router.put('/update/:post_id', async (req, res, next) => {
+router.patch('/update/:post_id', async (req, res, next) => {
     const payload = req.body
     const post_id = req.params.post_id
     const post = await PostModel.findByIdAndUpdate(post_id, {$set: payload})

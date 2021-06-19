@@ -21,7 +21,7 @@ router.post('/', async (req, res, next) => {
     res.json({status: 200, admin: admin})
 })
 
-router.put('/:admin_id', async (req, res, next) => {
+router.patch('/:admin_id', async (req, res, next) => {
     const admin_id = req.params.admin_id
     const payload = req.body
     const admin = await adminModel.findByIdAndUpdate(admin_id, {$set: payload})
