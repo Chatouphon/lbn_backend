@@ -1,6 +1,5 @@
 const express = require('express')
 const PostModel = require('../models/PostSchema')
-// const adminModel = require('../models/AdminSchema')
 const router = express.Router()
 
 router.get('/read', async (req, res, next) => {
@@ -14,7 +13,7 @@ router.get('/read', async (req, res, next) => {
     })
 })
 
-router.get('/:post_id', async (req, res, next) => {
+router.get('/read/:post_id', async (req, res, next) => {
     const post_id = req.params.post_id
     const post = await PostModel.findById(post_id)
     res.status(200).json({
@@ -50,21 +49,20 @@ router.post('/add', async (req, res, next) => {
     // res.json({status: 200})
 })
 
-router.patch('/:post_id', async (req, res, next) => {
-    console.log(req.body)
+router.put('/update/:post_id', async (req, res, next) => {
     const payload = req.body
     const post_id = req.params.post_id
-    const post = await await PostModel.findByIdAndUpdate(post_id, {$set: payload})
-    // res.json({status: 200, post: post})
+    const post = await PostModel.findByIdAndUpdate(post_id, {$set: payload})
     res.status(200).json({
         notice: {
             success: true,
-            message: 'ບັນທຶກການແກ້ໄຂສຳເລັດ',
-        }
+            message: 'ແກ້ໄຂໂພສສຳເລັດ',
+        },
+        data: post
     })
 })
 
-router.delete('/:post_id', async (req, res, next) => {
+router.delete('/delete/:post_id', async (req, res, next) => {
     const post_id = req.params.post_id
     await PostModel.findByIdAndDelete(post_id)
     // res.json({status: 200})

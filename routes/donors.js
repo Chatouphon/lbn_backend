@@ -21,3 +21,5 @@ router.put('/', (req, res, next) => {
 router.delete('/', (req, res, next) => {
     res.json({status: 200})
 })
+
+module.exports = router;

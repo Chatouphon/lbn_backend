@@ -33,8 +33,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+<<<<<<< HEAD
 const postRoute = require('./routes/posts')
 app.use('/post', postRoute)
+=======
+var postsRouter = require('./routes/posts');
+app.use('/post', postsRouter);
+var adminRouter = require('./routes/admin');
+app.use('/admin', adminRouter);
+var guideRouter = require('./routes/guide')
+>>>>>>> 2d87775dcfb108ed65daf1cfe12b9fdd8ebfebc2
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
