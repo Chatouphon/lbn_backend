@@ -5,8 +5,10 @@ const Schema = mongoose.Schema
 const adminSchema = new Schema({
     username: String,
     password: String,
+    email: String,
+    fullName: String,
     image: String,
-    created_at: { type: Date, default: null },
-    updated_at: { type: Date, default: null },
-    deleted_at: { type: Date, default: null }
-})
+}, { timestamps:true, collection: 'admin' })
+
+const adminModel = mongoose.model('admin', adminSchema)
+module.exports = adminModel

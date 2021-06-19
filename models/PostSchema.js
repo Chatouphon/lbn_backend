@@ -9,10 +9,7 @@ const postSchema = new Schema({
     datePost: Date,
     statusPost: Boolean,
     penName: String,
-    created_at: { type: Date, default: null },
-    updated_at: { type: Date, default: null },
-    deleted_at: { type: Date, default: null }
-})
+}, { timestamps:true, collection: 'post' })
 
 const PostModel = mongoose.model('post', postSchema)
 module.exports = PostModel
