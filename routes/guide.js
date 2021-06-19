@@ -45,7 +45,7 @@ router.post('/add', async (req, res, next) => {
     }
 })
 
-router.put('/update/:guide_id', async (req, res, next) => {
+router.patch('/update/:guide_id', async (req, res, next) => {
     const payload = req.body
     const guide_id = req.params.guide_id
     const guide = await GuideModel.findByIdAndUpdate(guide_id, {$set: payload})
