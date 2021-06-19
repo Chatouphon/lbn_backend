@@ -37,7 +37,8 @@ var postsRouter = require('./routes/posts');
 app.use('/post', postsRouter);
 var adminRouter = require('./routes/admin');
 app.use('/admin', adminRouter);
-var guideRouter = require('./routes/guide')
+var guideRouter = require('./routes/guide');
+app.use('/guide', guideRouter);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
