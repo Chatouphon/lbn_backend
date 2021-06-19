@@ -50,11 +50,18 @@ router.post('/add', async (req, res, next) => {
     // res.json({status: 200})
 })
 
-router.put('/:post_id', async (req, res, next) => {
+router.patch('/:post_id', async (req, res, next) => {
+    console.log(req.body)
     const payload = req.body
     const post_id = req.params.post_id
     const post = await await PostModel.findByIdAndUpdate(post_id, {$set: payload})
-    res.json({status: 200, post: post})
+    // res.json({status: 200, post: post})
+    res.status(200).json({
+        notice: {
+            success: true,
+            message: 'ບັນທຶກການແກ້ໄຂສຳເລັດ',
+        }
+    })
 })
 
 router.delete('/:post_id', async (req, res, next) => {

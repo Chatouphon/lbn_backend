@@ -16,6 +16,7 @@ mongoose.connect(
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
+    useFindAndModify: true
   }
 )
 
@@ -33,7 +34,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const postRoute = require('./routes/posts')
-app.use('/news', postRoute)
+app.use('/post', postRoute)
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
