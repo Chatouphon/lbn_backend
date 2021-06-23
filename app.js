@@ -9,18 +9,22 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 const mongoose = require('mongoose')
-mongoose.connect(
-  "mongodb+srv://oldcat:admin123@lbncluster.ihd05.mongodb.net/LBNdb?retryWrites=true&w=majority",
+mongoose.connect(process.env.DB_CONNECT ,
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
-  }
-)
+  }, () => 
+  console.log('Connected to database!')
+);
 
-var cors = require('cors')
-app.use(cors())
+var cors = require('cors');
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var postsRouter = require('./routes/posts');
 app.use('/post', postsRouter);
 var adminRouter = require('./routes/admin');
-app.use('/admin', adminRouter);
+app.use('/adacc', adminRouter);
 var guideRouter = require('./routes/guide');
 app.use('/guide', guideRouter);
 
