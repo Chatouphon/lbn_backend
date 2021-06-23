@@ -29,7 +29,9 @@ router.post('/add', async (req, res, next) => {
     try {
         const payload = req.body
         const guide = new GuideModel(payload)
-        await post.save()
+        console.log(payload)
+        console.log(guide)
+        await guide.save()
         res.status(200).json({
             notice: {
                 success: true,
@@ -39,6 +41,7 @@ router.post('/add', async (req, res, next) => {
         })
     } catch (error) {
         res.status(400).json({
+            err: error,
             message: 'ບັນທຶກບໍ່ສຳເລັດ',
         })
         console.log(error)
@@ -49,6 +52,8 @@ router.patch('/update/:guide_id', async (req, res, next) => {
     const payload = req.body
     const guide_id = req.params.guide_id
     const guide = await GuideModel.findByIdAndUpdate(guide_id, {$set: payload})
+    console.log(payload)
+    console.log(guide)
     res.status(200).json({
         notice: {
             success: true,

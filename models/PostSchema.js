@@ -6,7 +6,7 @@ const postSchema = new Schema({
     title: String,
     content: String,
     image: String,
-    datePost: Date,
+    // datePost: Date,
     statusPost: Boolean,
     penName: String,
 }, { timestamps:true, collection: 'post' })

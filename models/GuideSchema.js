@@ -3,7 +3,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const guideSchema = new Schema({
-    title: String,
+    title: {
+        type: String,
+        required: true
+    },
     content: String,
     cover: String,
 }, { timestamps:true, collection: 'guide' })
