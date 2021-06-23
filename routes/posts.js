@@ -1,6 +1,7 @@
 const express = require('express')
 const PostModel = require('../models/PostSchema')
 const router = express.Router()
+const verify = require('./verifyToken')
 
 router.get('/read', async (req, res, next) => {
     const posts = await PostModel.find()
@@ -25,7 +26,7 @@ router.get('/read/:post_id', async (req, res, next) => {
     })
 })
 
-router.post('/add', async (req, res, next) => {
+router.post('/add', verify ,async (req, res, next) => {
     try {
         const payload = req.body
         const post = new PostModel(payload)
@@ -49,7 +50,7 @@ router.post('/add', async (req, res, next) => {
     // res.json({status: 200})
 })
 
-router.patch('/update/:post_id', async (req, res, next) => {
+router.patch('/update/:post_id', verify , async (req, res, next) => {
     const payload = req.body
     const post_id = req.params.post_id
     const post = await PostModel.findByIdAndUpdate(post_id, {$set: payload})
@@ -62,7 +63,7 @@ router.patch('/update/:post_id', async (req, res, next) => {
     })
 })
 
-router.delete('/delete/:post_id', async (req, res, next) => {
+router.delete('/delete/:post_id', verify , async (req, res, next) => {
     const post_id = req.params.post_id
     await PostModel.findByIdAndDelete(post_id)
     // res.json({status: 200})
