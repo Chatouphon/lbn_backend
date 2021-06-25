@@ -4,6 +4,7 @@ const router = express.Router()
 const verify = require('./verifyToken')
 
 router.get('/', async (req, res, next) => {
+    // console.log(req.user)
     const guides = await GuideModel.find()
     res.status(200).json({
         notice: {
@@ -26,7 +27,8 @@ router.get('/:guide_id', async (req, res, next) => {
     })
 })
 
-router.post('/add', verify , async (req, res, next) => {
+// router.post('/add', verify , async (req, res, next) => {
+router.post('/add', async (req, res, next) => {
     try {
         const payload = req.body
         const guide = new GuideModel(payload)
@@ -49,7 +51,8 @@ router.post('/add', verify , async (req, res, next) => {
     }
 })
 
-router.patch('/update/:guide_id', verify , async (req, res, next) => {
+router.patch('/update/:guide_id', async (req, res, next) => {
+// router.patch('/update/:guide_id', verify , async (req, res, next) => {
     const payload = req.body
     const guide_id = req.params.guide_id
     const guide = await GuideModel.findByIdAndUpdate(guide_id, {$set: payload})
@@ -64,7 +67,8 @@ router.patch('/update/:guide_id', verify , async (req, res, next) => {
     })
 })
 
-router.delete('/delete/:guide_id', verify , async (req, res, next) => {
+// router.delete('/delete/:guide_id', verify , async (req, res, next) => {
+router.delete('/delete/:guide_id', async (req, res, next) => {
     const guide_id = req.params.guide_id
     await GuideModel.findByIdAndDelete(guide_id)
     res.status(200).json({
