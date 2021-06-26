@@ -1,15 +1,12 @@
-const mongoose = require('')
+const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
 const addressSchema = new Schema({
     addressName: String,
     latitude: String,
-    longitude: String,
-    created_at: { type: Date, default: null },
-    updated_at: { type: Date, default: null },
-    deleted_at: { type: Date, default: null }
-})
+    longtitude: String,
+}, { timestamps:true, collection: 'address' })
 
 const AddressModel = mongoose.model('address', addressSchema)
 module.exports = AddressModel

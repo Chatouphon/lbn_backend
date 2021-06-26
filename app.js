@@ -42,6 +42,10 @@ var adminRouter = require('./routes/admin');
 app.use('/adacc', adminRouter);
 var guideRouter = require('./routes/guide');
 app.use('/guide', guideRouter);
+var addressRouter = require('./routes/address');
+app.use('/address', addressRouter);
+var activityRouter = require('./routes/activityPlan');
+app.use('/activity', activityRouter);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
