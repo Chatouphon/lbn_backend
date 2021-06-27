@@ -10,10 +10,7 @@ const activityPlanSchema = new Schema({
     status: String,
     timeStart: Date,
     timeEnd: Date,
-    created_at: { type: Date, default: null },
-    updated_at: { type: Date, default: null },
-    deleted_at: { type: Date, default: null }
-})
+}, { timestamps:true, collection: 'activity'})
 
 const ActivityPlanModel = mongoose.model('activity', activityPlanSchema)
 module.exports = ActivityPlanModel
