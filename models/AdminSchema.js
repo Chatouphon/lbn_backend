@@ -31,7 +31,10 @@ const adminSchema = new Schema({
         required: true,
         max: 255
     },
-    image: String,
+    image: {
+        type: String,
+        default: 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
+    },
 }, { timestamps:true, collection: 'admin' })
 
 const adminModel = mongoose.model('admin', adminSchema)
