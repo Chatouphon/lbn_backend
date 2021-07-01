@@ -27,9 +27,11 @@ router.get('/:address_id', async (req, res, next) => {
 
 router.post('/add', async (req, res, next) => {
     try {
+        console.log(req.body)
         const payload = req.body
         const address = new AddressModel(payload)
         await address.save()
+        console.log(address)
         res.status(200).json({
             notice: {
                 success: true,

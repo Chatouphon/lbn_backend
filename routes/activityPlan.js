@@ -4,7 +4,22 @@ const router = express.Router()
 const verify = require('./verifyToken')
 
 router.get('/', async (req, res, next) => {
-    const activities = await ActivityPlanModel.find()
+    const activities = await ActivityPlanModel.find().populate('addressId')
+    res.status(200).json({
+        notice: {
+            success: true,
+            message: "ເຂົ້າເຖິງຂໍ້ມູນກິດຈະກຳສຳເລັດ",
+        },
+        data: activities
+    })
+})
+
+router.get('/calendar', async (req, res, next) => {
+    const pickDate = req.query.pickDate
+    // console.log(req)
+    // console.log(pickDate)
+    const activities = await ActivityPlanModel.find({ dateAt: { $all: [pickDate] } }).populate('addressId')
+    // console.log(activities)
     res.status(200).json({
         notice: {
             success: true,
@@ -16,7 +31,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:activity_id', async (req, res, next) => {
     const activity_id = req.params.activity_id
-    const activity = await ActivityPlanModel.findById(activity_id)
+    const activity = await ActivityPlanModel.findById(activity_id).populate('addressId')
     res.status(200).json({
         notice: {
             success: true,
@@ -48,6 +63,7 @@ router.post('/add', verify, async (req, res, next) => {
 
 router.patch('/edit/:activity_id', verify, async (req, res, next) => {
     const payload = req.body
+    // console.log(payload)
     const activity_id = req.params.activity_id
     const activity = await ActivityPlanModel.findByIdAndUpdate(activity_id, {$set: payload})
     res.status(200).json({
