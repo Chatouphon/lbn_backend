@@ -8,6 +8,7 @@ const { registerValidation, loginValidation } = require('../validation');
 //Register admin
 router.post('/register', async (req, res) => {
     //VALIDATE DATA BEFORE CREATE ACC
+    console.log(req.body)
     const { error } = registerValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message)
 
@@ -54,6 +55,7 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
     // res.header('Authorization', token).json({
     res.status(200).json({
+        _id: user._id,
         username: user.username,
         email: user.email,
         firstName: user.firstName,
