@@ -13,6 +13,12 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const port = process.env.PORT || 80;
+
+app.listen(port, function () {
+  console.log(`Server start successfully on port ${port}`);
+})
+
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DB_CONNECT ,
   {
@@ -66,5 +72,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;
