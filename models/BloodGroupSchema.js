@@ -5,15 +5,9 @@ const Schema = mongoose.Schema
 const bloodGroupSchema = new Schema({
     ABO: {
         type: String,
-        enum : ['A', 'B', 'O', 'AB'],
-        default: 'A'
-    },
-    rhesus: {
-        type: String,
-        enum : ['Positive', 'Negative'],
-        default: 'Positive'
+        required: true
     }
-}, { timestamps:true, collection: 'activity'})
+}, { timestamps:true, collection: 'blood_group' })
 
 const BloodGroupModel = mongoose.model('bloodgroup', bloodGroupSchema)
 module.exports = BloodGroupModel
