@@ -12,11 +12,8 @@ const bloodGroupSchema = new Schema({
         type: String,
         enum : ['Positive', 'Negative'],
         default: 'Positive'
-    },
-    created_at: { type: Date, default: null },
-    updated_at: { type: Date, default: null },
-    deleted_at: { type: Date, default: null }
-})
+    }
+}, { timestamps:true, collection: 'activity'})
 
 const BloodGroupModel = mongoose.model('bloodgroup', bloodGroupSchema)
 module.exports = BloodGroupModel

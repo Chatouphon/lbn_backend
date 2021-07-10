@@ -15,11 +15,14 @@ const donorSchema = new Schema({
     province: String,
     tel: Number,
     whatsapp: Number,
-    bloodGroup: String,
-    created_at: { type: Date, default: null },
-    updated_at: { type: Date, default: null },
-    deleted_at: { type: Date, default: null }
-})
+    bloodGroup: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'bloodgroup'
+    },
+    // created_at: { type: Date, default: null },
+    // updated_at: { type: Date, default: null },
+    // deleted_at: { type: Date, default: null }
+}, { timestamps:true, collection: 'activity'})
 
 const DonorModel = mongoose.model('donor', donorSchema)
 module.exports = DonorModel
