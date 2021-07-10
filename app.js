@@ -13,6 +13,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+// const port = process.env.PORT;
 const port = process.env.PORT || 80;
 
 app.listen(port, function () {
@@ -52,6 +53,8 @@ var addressRouter = require('./routes/address');
 app.use('/address', addressRouter);
 var activityRouter = require('./routes/activityPlan');
 app.use('/activity', activityRouter);
+var bloodGroupRouter = require('./routes/bloodGroup');
+app.use('/bloodGroup', bloodGroupRouter);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
