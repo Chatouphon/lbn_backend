@@ -22,7 +22,7 @@ const donorSchema = new Schema({
     // created_at: { type: Date, default: null },
     // updated_at: { type: Date, default: null },
     // deleted_at: { type: Date, default: null }
-}, { timestamps:true, collection: 'activity'})
+}, { timestamps:true, collection: 'donor'})
 
 const DonorModel = mongoose.model('donor', donorSchema)
 module.exports = DonorModel
