@@ -3,6 +3,10 @@ const ActivityPlanModel = require('../models/ActivityPlanSchema')
 const router = express.Router()
 const verify = require('./verifyToken')
 
+const { customAlphabet } = require('nanoid');
+const alphabet = '0123456789';
+const nanoid = customAlphabet(alphabet, 6);
+
 router.get('/', async (req, res, next) => {
     const activities = await ActivityPlanModel.find().populate('addressId')
     res.status(200).json({
@@ -44,6 +48,13 @@ router.get('/:activity_id', async (req, res, next) => {
 router.post('/add', verify, async (req, res, next) => {
     try {
         const payload = req.body
+        let newNanoid = nanoid()
+        let newVerifyCode
+        do {
+            newNanoid = nanoid()
+            newVerifyCode = await ActivityPlanModel.findOne({ verifyCode: newNanoid })
+        } while(!!newVerifyCode)
+        payload['verifyCode'] = newNanoid
         const activity = new ActivityPlanModel(payload)
         await activity.save()
         res.status(200).json({

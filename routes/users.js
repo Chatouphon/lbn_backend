@@ -8,6 +8,7 @@ router.get("/signin", gauth, async function (req, res) {
   try {
     const donorId = req.userGoogle['sub']
     const donorExist = await Donor.findOne({ donorId: donorId }).populate('bloodGroup')
+    // donorExist['image'] = req.userGoogle['picture']
     if (!donorExist) {
       return res.json({
         alert: true,
@@ -16,6 +17,7 @@ router.get("/signin", gauth, async function (req, res) {
           "ບັນຊີ Google ຂອງທ່ານບໍ່ທັນໄດ້ລົງທະບຽນ. ກະລຸນາໄປທີ່ໜ້າ Sign Up ເພື່ອລົງທະບຽນ",
       });
     }
+    // console.log(donorExist)
     res.status(200).json({
       notice: {
         success: true,
@@ -35,9 +37,9 @@ router.post("/signup", gauth, async function (req, res, next) {
   try {
     const newDonor = req.body;
     newDonor['donorId'] = req.userGoogle['sub']
-    newDonor['image'] = req.userGoogle['picture']
+    // newDonor['image'] = req.userGoogle['picture']
     const donorExist = await Donor.findOne({ donorId: newDonor['donorId'] });
-    console.log(donorExist)
+    // console.log(donorExist)
     if (donorExist) {
       return res.json({
         alert: true,

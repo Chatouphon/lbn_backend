@@ -60,6 +60,12 @@ app.use('/bloodGroup', bloodGroupRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+const donorRoute = require('./routes/donation');
+app.use('/donation', donorRoute);
+
+const requestRoute = require('./routes/request');
+app.use('/request', requestRoute)
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -1,16 +1,16 @@
+const { string } = require('@hapi/joi')
 const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
 const donationSchema = new Schema({
-    donationId: String,
-    activityId: String,
+    activityId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'activity'
+    },
     donorId: String,
-    dateDonor: date,
-    created_at: { type: Date, default: null },
-    updated_at: { type: Date, default: null },
-    deleted_at: { type: Date, default: null }
-})
+    dateDonor: String,
+}, {timestamps: true, collection: 'donation'})
 
 const DonationModel = mongoose.model('donation', donationSchema)
 module.exports = DonationModel

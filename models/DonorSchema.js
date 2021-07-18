@@ -9,7 +9,10 @@ const donorSchema = new Schema({
     dob: String,
     gender: String,
     job: String,
-    image: String,
+    image: {
+        type: String,
+        default: 'https://firebasestorage.googleapis.com/v0/b/nodewithfirebase-6e669.appspot.com/o/public%2Fuser.png?alt=media&token=a4899652-fb95-4139-8dc4-18cefeb732e6'
+    },
     village: String,
     district: String,
     province: String,

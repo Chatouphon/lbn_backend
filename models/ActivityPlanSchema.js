@@ -11,6 +11,7 @@ const activityPlanSchema = new Schema({
     content: String,
     // image: String,
     status: Boolean,
+    verifyCode: Number,
     dateAt: Array,
     timeStart: String,
     timeEnd: String,
