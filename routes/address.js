@@ -3,7 +3,7 @@ const AddressModel = require('../models/addressSchema')
 const router = express.Router()
 
 router.get('/', async (req, res, next) => {
-    const address = await AddressModel.find()
+    const address = await AddressModel.find().sort("createdAt")
     res.status(200).json({
         notice: {
             success: true,

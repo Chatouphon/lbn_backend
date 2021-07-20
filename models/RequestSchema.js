@@ -10,6 +10,7 @@ const requestSchema = new Schema({
         type: Boolean,
         default: false
     },
+    verifyCode: String,
     requestor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'donor'

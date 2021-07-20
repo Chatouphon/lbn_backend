@@ -8,7 +8,7 @@ const alphabet = '0123456789';
 const nanoid = customAlphabet(alphabet, 6);
 
 router.get('/', async (req, res, next) => {
-    const activities = await ActivityPlanModel.find().populate('addressId')
+    const activities = await ActivityPlanModel.find().sort("-createdAt").populate('addressId')
     res.status(200).json({
         notice: {
             success: true,
@@ -22,7 +22,7 @@ router.get('/calendar', async (req, res, next) => {
     const pickDate = req.query.pickDate
     // console.log(req)
     // console.log(pickDate)
-    const activities = await ActivityPlanModel.find({ dateAt: { $all: [pickDate] } }).populate('addressId')
+    const activities = await ActivityPlanModel.find({ dateAt: { $all: [pickDate] } }).populate('addressId').sort("createdAt")
     // console.log(activities)
     res.status(200).json({
         notice: {
@@ -48,7 +48,7 @@ router.get('/:activity_id', async (req, res, next) => {
 router.post('/add', verify, async (req, res, next) => {
     try {
         const payload = req.body
-        let newNanoid = nanoid()
+        let newNanoid
         let newVerifyCode
         do {
             newNanoid = nanoid()

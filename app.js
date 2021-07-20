@@ -21,15 +21,18 @@ app.listen(port, function () {
 })
 
 const mongoose = require('mongoose')
-mongoose.connect(process.env.DB_CONNECT ,
-  {
-    keepAlive: true,
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-    useCreateIndex: true,
-  }, () => 
-  console.log('Connected to database!')
-);
+const DB = async() => {
+  await mongoose.connect(process.env.DB_CONNECT ,
+    {
+      keepAlive: true,
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useCreateIndex: true,
+    }, () => 
+    console.log('Connected to database!')
+  );
+}
+DB()
 
 var cors = require('cors');
 app.use(cors());
@@ -65,6 +68,9 @@ app.use('/donation', donorRoute);
 
 const requestRoute = require('./routes/request');
 app.use('/request', requestRoute)
+
+const EmergencyDonorRoute = require('./routes/Emergency')
+app.use('/donate', EmergencyDonorRoute)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

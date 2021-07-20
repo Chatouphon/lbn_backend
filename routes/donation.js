@@ -6,8 +6,8 @@ const gauth = require("./vertifyIdToken");
 
 router.get("/", gauth, async (req, res, next) => {
   try {
-    const donorId = req.userGoogle['sub'] 
-    const records = await DonationModel.find({ donorId: donorId }).populate("activityId");
+    const donorId = req.query.donorId 
+    const records = await DonationModel.find({ donorId: donorId }).populate("activityId").sort("createdAt");
     // console.log(records)
     res.status(200).json({
       notice: {
@@ -25,9 +25,10 @@ router.get("/:donor_id", (req, res, next) => {});
 
 router.post("/add", gauth, async (req, res, next) => {
   try {
-    const donorId = req.userGoogle["sub"];
+    const donorId = req.body.donorId;
     let verifyCode = req.body.verifyCode;
     // console.log(verifyCode);
+    // console.log(donorId)
     let timeCurr = new Date();
     let h = checkTime(timeCurr.getHours());
     let m = checkTime(timeCurr.getMinutes());
@@ -36,13 +37,14 @@ router.post("/add", gauth, async (req, res, next) => {
       .toISOString()
       .substr(0, 10);
     let checkCode = await ActivityPlanModel.findOne({ verifyCode: verifyCode });
+    console.log(checkCode)
     if (!checkCode) {
       return res.json({
         alert: true,
         message: "ລະຫັດທີ່ທ່ານປ້ອນ ແມ່ນບໍ່ຖືກຕ້ອງ",
       });
     }
-    console.log(checkCode._id);
+    // console.log(checkCode._id);
     let donationExist = await DonationModel.findOne({
       donorId: donorId,
       activityId: checkCode._id,

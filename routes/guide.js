@@ -5,7 +5,7 @@ const verify = require('./verifyToken')
 
 router.get('/', async (req, res, next) => {
     // console.log(req.user)
-    const guides = await GuideModel.find()
+    const guides = await GuideModel.find().sort("-createdAt")
     res.status(200).json({
         notice: {
             success: true,
@@ -32,8 +32,8 @@ router.post('/add', async (req, res, next) => {
     try {
         const payload = req.body
         const guide = new GuideModel(payload)
-        console.log(payload)
-        console.log(guide)
+        // console.log(payload)
+        // console.log(guide)
         await guide.save()
         res.status(200).json({
             notice: {

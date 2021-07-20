@@ -11,7 +11,7 @@ const donorSchema = new Schema({
     job: String,
     image: {
         type: String,
-        default: 'https://firebasestorage.googleapis.com/v0/b/nodewithfirebase-6e669.appspot.com/o/public%2Fuser.png?alt=media&token=a4899652-fb95-4139-8dc4-18cefeb732e6'
+        default: 'https://firebasestorage.googleapis.com/v0/b/nodewithfirebase-6e669.appspot.com/o/public%2Fdefault-user.png?alt=media&token=4d7433a4-aa56-405c-aaa5-3dd2fc878be8'
     },
     village: String,
     district: String,

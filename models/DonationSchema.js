@@ -8,7 +8,10 @@ const donationSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'activity'
     },
-    donorId: String,
+    donorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'donor'
+    },
     dateDonor: String,
 }, {timestamps: true, collection: 'donation'})
 

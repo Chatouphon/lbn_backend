@@ -4,7 +4,7 @@ const router = express.Router()
 const verify = require('./verifyToken')
 
 router.get('/read', async (req, res, next) => {
-    const posts = await PostModel.find()
+    const posts = await PostModel.find().sort("-createdAt")
     res.status(200).json({
         notice: {
             success: true,
