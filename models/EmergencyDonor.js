@@ -14,7 +14,7 @@ const emergencySchema = new Schema(
     },
     dateDonor: String,
   },
-  { timestamps: true, collection: "emergencyDonor" }
+  { timestamps: true, collection: "emergency_donor" }
 );
 
 const EmergencyDonorModel = mongoose.model("emergencyDonor", emergencySchema);
