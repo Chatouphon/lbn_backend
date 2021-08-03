@@ -9,6 +9,7 @@ router.get("/activity", async (req, res) => {
     // console.log(pickDate)
     const activities = await ActivityPlanModel.find({
       dateAt: { $all: [pickDate] },
+      _id: { $ne: "6108e7282726065274f9834e" }
     }).populate('addressId');
     const response = [];
     for (let activity in activities) {

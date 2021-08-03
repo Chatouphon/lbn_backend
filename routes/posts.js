@@ -14,6 +14,17 @@ router.get('/read', async (req, res, next) => {
     })
 })
 
+router.get('/read/admin', async (req, res, next) => {
+    const posts = await PostModel.find().sort("-createdAt")
+    res.status(200).json({
+        notice: {
+            success: true,
+            message: "ເຂົ້າເຖີງຂໍ້ມູນສຳເລັດ",
+        },
+        data: posts
+    })
+})
+
 router.get('/read/:post_id', async (req, res, next) => {
     const post_id = req.params.post_id
     const post = await PostModel.findById(post_id)
