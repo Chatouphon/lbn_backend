@@ -55,7 +55,7 @@ router.post("/add", gauth, async (req, res, next) => {
       donorId: donorId,
       activityId: checkCode._id,
     });
-    if (donationExist != null) {
+    if (donationExist != null && donationExist._id != "6108e7282726065274f9834e") {
       return res.json({
         alert: true,
         message: "ທ່ານໄດ້ ບັນທຶກການເຂົ້າຮ່ວມແລ້ວ",
