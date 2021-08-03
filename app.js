@@ -72,6 +72,9 @@ app.use('/request', requestRoute)
 const EmergencyDonorRoute = require('./routes/Emergency')
 app.use('/donate', EmergencyDonorRoute)
 
+const Dashboard = require('./routes/dashboard')
+app.use('/dashboard', Dashboard)
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

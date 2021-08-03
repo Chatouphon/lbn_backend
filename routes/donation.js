@@ -4,17 +4,23 @@ const ActivityPlanModel = require("../models/ActivityPlanSchema");
 const router = express.Router();
 const gauth = require("./vertifyIdToken");
 
+const { customAlphabet } = require("nanoid");
+const alphabet = "0123456789";
+const nanoid = customAlphabet(alphabet, 6);
+
 router.get("/", gauth, async (req, res, next) => {
   try {
-    const donorId = req.query.donorId 
-    const records = await DonationModel.find({ donorId: donorId }).populate("activityId").sort("createdAt");
+    const donorId = req.query.donorId;
+    const records = await DonationModel.find({ donorId: donorId })
+      .populate("activityId")
+      .sort("-createdAt");
     // console.log(records)
     res.status(200).json({
       notice: {
         success: true,
         message: "ເຂົ້າເຖີງບັນທຶກການບໍລິຈາກສຳເລັດ",
       },
-      data: records
+      data: records,
     });
   } catch (error) {
     console.log(error);
@@ -37,7 +43,7 @@ router.post("/add", gauth, async (req, res, next) => {
       .toISOString()
       .substr(0, 10);
     let checkCode = await ActivityPlanModel.findOne({ verifyCode: verifyCode });
-    console.log(checkCode)
+    // console.log(checkCode)
     if (!checkCode) {
       return res.json({
         alert: true,
@@ -55,12 +61,47 @@ router.post("/add", gauth, async (req, res, next) => {
         message: "ທ່ານໄດ້ ບັນທຶກການເຂົ້າຮ່ວມແລ້ວ",
       });
     }
+    console.log(today);
+    if (checkCode._id == "6108e7282726065274f9834e") {
+      // console.log(checkCode.title);
+      const activity = await ActivityPlanModel.findOne({
+        _id: "6108e7282726065274f9834e",
+        verifyCode: verifyCode,
+        timeStart: { $lt: HHMM },
+        timeEnd: { $gte: HHMM },
+      });
+      console.log(activity);
+      let newNanoid = nanoid();
+      await ActivityPlanModel.updateOne(
+        { _id: "6108e7282726065274f9834e" },
+        { $set: { verifyCode: newNanoid } }
+      );
+      if (!activity) {
+        return res.json({
+          alert: true,
+          message: "ລະຫັດ ຂອງທ່ານແມ່ນໝົດອາຍຸ ຫຼື ຍັງບໍ່ທັນເປີດນຳໃຊ້",
+        });
+      }
+
+      const donation = {
+        activityId: activity._id,
+        donorId: donorId,
+        dateDonor: today,
+      };
+      const recordDonor = new DonationModel(donation);
+      await recordDonor.save();
+      return res.status(201).json({
+        alert: false,
+        message: "ບັນທຶກການຮ່ວມບໍລິຈາກທີ່ສູນເລືອດ ສຳເລັດ",
+      });
+    }
     const activity = await ActivityPlanModel.findOne({
-      verifyCode: verifyCode,
       dateAt: { $all: [today] },
+      verifyCode: verifyCode,
       timeStart: { $lt: HHMM },
       timeEnd: { $gte: HHMM },
     });
+    console.log(activity);
     if (!activity) {
       return res.json({
         alert: true,

@@ -68,7 +68,7 @@ router.post("/emergency/add", gauth, async (req, res) => {
 router.get("/emergency", gauth, async (req, res) => {
   try {
       const donorId = req.query.donorId
-      const records = await EmergencyDonorModel.find({ donorId: donorId }).populate("requestId").sort("createdAt");
+      const records = await EmergencyDonorModel.find({ donorId: donorId }).populate("requestId").sort("-createdAt");
     //   console.log(records)
       res.status(200).json({
         notice: {

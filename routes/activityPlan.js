@@ -22,7 +22,7 @@ router.get('/calendar', async (req, res, next) => {
     const pickDate = req.query.pickDate
     // console.log(req)
     // console.log(pickDate)
-    const activities = await ActivityPlanModel.find({ dateAt: { $all: [pickDate] } }).populate('addressId').sort("createdAt")
+    const activities = await ActivityPlanModel.find({ dateAt: { $all: [pickDate] }, status: true }).populate('addressId').sort("-createdAt")
     // console.log(activities)
     res.status(200).json({
         notice: {
