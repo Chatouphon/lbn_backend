@@ -34,7 +34,7 @@ router.get("/client", gauth, async (req, res) => {
     const AllRequest = await RequestModel.find({
       requestor: { $ne: donorId },
       allowed: true,
-      bloodReq: bloodGroup,
+      // bloodReq: bloodGroup,
     }).populate("requestor bloodReq").sort("-createdAt");
     // console.log(AllRequest)
     return res.status(200).json({
