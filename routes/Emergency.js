@@ -84,14 +84,20 @@ router.get("/emergency", gauth, async (req, res) => {
 
 router.get('/helper', async (req, res) => {
   try {
+    // console.log('hepler')
     const requestor = req.query.requestor
     console.log(requestor)
     const AllRequest = await RequestModel.find({ requestor: requestor })
-    let history = []
+    // let history = []
+    const helper = []
     for (let requestItem in AllRequest) {
-      history.push(AllRequest[requestItem]._id)
+      // history.push(AllRequest[requestItem]._id) = 
+      let person = await EmergencyDonorModel.find({ requestId: AllRequest[requestItem]._id }).populate("requestId donorId bloodGroup").sort("-createdAt")
+      helper.push(person[0])
     }
-    const helper = await EmergencyDonorModel.find({ requestId: { $all: history } }).populate("requestId donorId bloodGroup").sort("-createdAt")
+    // console.log(history)
+    // const helper = await EmergencyDonorModel.find({ requestId: { $all: history } }).populate("requestId donorId bloodGroup").sort("-createdAt")
+    console.log(helper)
     return res.status(200).json({
       notice: {
         success: true,

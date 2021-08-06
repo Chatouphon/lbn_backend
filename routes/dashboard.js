@@ -310,8 +310,20 @@ router.get("/chart", async (req, res) => {
     //   firstTime: firstTime,
     //   twoUp: twoUp
     // });
-    let AllDonate = await DonationModel.find().count();
-    let countActivity = await ActivityPlanModel.find().count();
+    let AllDonate = await DonationModel.find({ createdAt: { $gte: [`${pickYear}-01-01`], $lt: [`${pickYear+1}-01-01`]} }).countDocuments();
+    // console.log(AllDonate)
+    // AllDonate.filter((doc) => {
+    //   if (new Date(doc.createdAt).getFullYear() == pickYear) {
+    //     console.log(new Date(doc.createdAt).getFullYear() == pickYear)
+    //     return doc
+    //   }
+    // })
+    let countActivity = await ActivityPlanModel.find({ createdAt: { $gte: [`${pickYear}-01-01`], $lt: [`${pickYear+1}-01-01`]} }).countDocuments();
+    // countActivity.filter((doc) => {
+    //   if (new Date(doc.createdAt).getFullYear() == pickYear) {
+    //     return doc
+    //   }
+    // })
     res.status(200).json({
       firstTime: firstTime,
       twoUp: twoUp,
