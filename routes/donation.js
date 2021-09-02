@@ -105,7 +105,7 @@ router.post("/add", gauth, async (req, res, next) => {
     if (!activity) {
       return res.json({
         alert: true,
-        message: "ລະຫັດ ຂອງທ່ານແມ່ນໝົດອາຍຸ ຫຼື ຍັງບໍ່ທັນເປີດນຳໃຊ້",
+        message: "ລະຫັດ ຂອງທ່ານແມ່ນໝົດອາຍຸ ຫຼື ຍັງບໍ່ທັນເປີດນຳໃຊ້ເທື່ອ",
       });
     }
     const donation = {
