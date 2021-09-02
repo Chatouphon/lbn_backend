@@ -95,7 +95,7 @@ router.post("/add", gauth, async (req, res, next) => {
         message: "ບັນທຶກການຮ່ວມບໍລິຈາກທີ່ສູນເລືອດ ສຳເລັດ",
       });
     }
-    const activity = await ActivityPlanModel.findOne({
+    const activity = await ActivityPlanModel.find({
       dateAt: { $all: [today] },
       verifyCode: verifyCode,
       timeStart: { $lt: HHMM },
