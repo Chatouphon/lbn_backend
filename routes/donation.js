@@ -61,7 +61,7 @@ router.post("/add", gauth, async (req, res, next) => {
         message: "ທ່ານໄດ້ ບັນທຶກການເຂົ້າຮ່ວມແລ້ວ",
       });
     }
-    console.log(today);
+    // console.log(today);
     if (checkCode._id == "6108e7282726065274f9834e") {
       // console.log(checkCode.title);
       const activity = await ActivityPlanModel.findOne({
@@ -70,7 +70,7 @@ router.post("/add", gauth, async (req, res, next) => {
         timeStart: { $lt: HHMM },
         timeEnd: { $gte: HHMM },
       });
-      console.log(activity);
+      // console.log(activity);
       let newNanoid = nanoid();
       await ActivityPlanModel.updateOne(
         { _id: "6108e7282726065274f9834e" },
@@ -95,13 +95,16 @@ router.post("/add", gauth, async (req, res, next) => {
         message: "ບັນທຶກການຮ່ວມບໍລິຈາກທີ່ສູນເລືອດ ສຳເລັດ",
       });
     }
+    // const activity = await ActivityPlanModel.findOne({
+    //   dateAt: { $all: [today] },
+    //   verifyCode: verifyCode,
+    //   timeStart: { $lt: HHMM },
+    //   timeEnd: { $gte: HHMM },
+    // });
     const activity = await ActivityPlanModel.findOne({
-      dateAt: { $all: [today] },
-      verifyCode: verifyCode,
-      timeStart: { $lt: HHMM },
-      timeEnd: { $gte: HHMM },
+      verifyCode: verifyCode
     });
-    console.log(activity);
+    // console.log(activity);
     if (!activity) {
       return res.json({
         alert: true,
